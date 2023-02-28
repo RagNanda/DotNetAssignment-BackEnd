@@ -18,11 +18,12 @@ namespace DotnetAssignmentBackEnd.Controllers;
         private IConfiguration _config;  
         private ProjectContext _context;
 
-        public LoginController(IConfiguration _config,ProjectContext context)
+        public LoginController(IConfiguration config,ProjectContext context)
         {
-            _config= _config;
-            _context= context;
+            _config = config;
+            _context = context;
         }
+
         [HttpPost, Route("login")]
         public IActionResult Login(loginDTO loginDTO)
         {
@@ -30,7 +31,8 @@ namespace DotnetAssignmentBackEnd.Controllers;
             {
                 User user =  _context.Users.Include(s=>s.Roles).SingleOrDefault(user=>user.UserName==loginDTO.UserName);
                 if (user == null || string.IsNullOrEmpty(loginDTO.UserName) ||
-                string.IsNullOrEmpty(loginDTO.Password)){
+                string.IsNullOrEmpty(loginDTO.Password))
+                {
                     return BadRequest("Invalid username or password");
                 }
                 if (loginDTO.UserName.Equals(user.UserName) &&
@@ -38,7 +40,8 @@ namespace DotnetAssignmentBackEnd.Controllers;
                 {   
                     var claims = user.Roles.Select(role => new Claim(ClaimTypes.Role, role.RoleName));
                     List<Claim> Claims=new List<Claim>();
-                    foreach (var i in user.Roles){
+                    foreach (var i in user.Roles)
+                    {
                         Claims.Add(new Claim(ClaimTypes.Role,i.RoleName.ToString()));
                     }
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Thisismysecretkey"));

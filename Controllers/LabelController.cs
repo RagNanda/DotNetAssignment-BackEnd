@@ -1,4 +1,3 @@
-
 using DotnetAssignmentBackEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -11,20 +10,27 @@ namespace DotnetAssignmentBackEnd.Controllers;
 [Route("[controller]")]
 [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)] 
 public class LabelController:ControllerBase{
-    ILabelService _labelService;
-    public LabelController(ILabelService service) {
-        _labelService = service;
+
+    ILabelService _LabelService;
+    
+    public LabelController(ILabelService MockService) 
+    {
+        _LabelService = MockService;
     }
 
     [Authorize(Roles="admin,projectManager")]
     [HttpPut]
     [Route("[action]")]
     [Authorize(Roles="Admin,ProjectManager,Standard")]
-    public IActionResult AddLabelsToIssue(int issueId,int labelId) {
-        try {
-            var model = _labelService.AddLabeltoIssue(issueId,labelId);
+    public IActionResult AddLabelsToIssue(int issueId,int labelId) 
+    {
+        try 
+        {
+            var model = _LabelService.AddLabeltoIssue(issueId,labelId);
             return Ok(model);
-        } catch (Exception) {
+        }
+        catch (Exception) 
+        {
             return BadRequest();
         }
     }
@@ -32,11 +38,15 @@ public class LabelController:ControllerBase{
     [Authorize(Roles="admin,projectManager")]
     [HttpPost]
     [Route("[action]")]
-    public IActionResult SaveLablels(Label label) {
-        try {
-            var model = _labelService.SaveLabel(label);
+    public IActionResult SaveLablels(Label label)
+    {
+        try
+        {
+            var model = _LabelService.SaveLabel(label);
             return Ok(model);
-        } catch (Exception) {
+        }
+        catch (Exception) 
+        {
             return BadRequest();
         }
     }
@@ -44,11 +54,15 @@ public class LabelController:ControllerBase{
     [Authorize(Roles="admin,projectManager")]
     [HttpDelete]
     [Route("[action]")]
-    public IActionResult DeleteLabelFromIssue(int issueId, int labelId) {
-        try {
-            var model = _labelService.DeleteLabelFromIssue( issueId, labelId);
+    public IActionResult DeleteLabelFromIssue(int issueId, int labelId) 
+    {
+        try 
+        {
+            var model = _LabelService.DeleteLabelFromIssue( issueId, labelId);
             return Ok(model);
-        } catch (Exception) {
+        }
+        catch (Exception) 
+        {
             return BadRequest();
         }
     }

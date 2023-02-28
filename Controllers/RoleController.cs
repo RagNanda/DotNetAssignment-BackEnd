@@ -10,18 +10,23 @@ namespace DotnetAssignmentBackEnd.Controllers;
 // [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)] 
 public class RoleController:ControllerBase{
     IRoleService _roleService;
-    public RoleController(IRoleService service) {
+    public RoleController(IRoleService service) 
+    {
         _roleService = service;
     }
 
     [Authorize(Roles="admin")]
     [HttpPost]
     [Route("[action]")]
-    public IActionResult SaveRole(RoleDTO roleModel) {
-        try {
+    public IActionResult SaveRole(RoleDTO roleModel) 
+    {
+        try 
+        {
             var model = _roleService.AddRole(roleModel);
             return Ok(model);
-        } catch (Exception) {
+        } 
+        catch (Exception) 
+        {
             return BadRequest();
         }
     }
@@ -29,11 +34,15 @@ public class RoleController:ControllerBase{
     [Authorize(Roles="admin")]
     [HttpPut]
     [Route("[action]")]
-    public IActionResult AssignRoleToUser(int UserId, int RoleId) {
-        try {
+    public IActionResult AssignRoleToUser(int UserId, int RoleId) 
+    {
+        try 
+        {
             var model = _roleService.AssignRole(UserId,RoleId);
             return Ok(model);
-        } catch (Exception) {
+        }
+        catch (Exception) 
+        {
             return BadRequest();
         }
     }
