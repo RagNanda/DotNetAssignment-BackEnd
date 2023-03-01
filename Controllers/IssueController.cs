@@ -14,12 +14,15 @@ public class IssueController:ControllerBase
 {
 
     IIssueService _IssueService;
+
     private ProjectContext _context;
 
     public IssueController(IIssueService MockService,ProjectContext context) 
     {
         _context = context;
+
         _IssueService = MockService;
+        
     }
 
     [HttpGet]
@@ -107,7 +110,7 @@ public class IssueController:ControllerBase
     [HttpPut]
     [Route("[action]")]
     [Authorize(Roles="admin,projectManager")]
-    public IActionResult UpdateIssue(int issueId,IssueUpdate issueModel) 
+    public IActionResult UpdateIssue(int issueId,IssueDTO issueModel) 
     {
         try 
         {
@@ -128,7 +131,7 @@ public class IssueController:ControllerBase
         ResponseModel model = new ResponseModel();
         try 
         {
-            Issue issue = _context.Find<Issue>(issueId);
+            Issue? issue = _context.Find<Issue>(issueId);
             int newStatus=0, current=0;
             foreach (string i in Enum.GetNames(typeof(Status)))
             {
@@ -139,14 +142,14 @@ public class IssueController:ControllerBase
             }
             foreach (string i in Enum.GetNames(typeof(Status)))
             {
-                if (i==issue.Status){
+                if (i==issue.IssueStatus){
                     break;
                 }
                  current=current+1;
             }
             if(newStatus<=current+1)
             {
-                issue.Status = status;
+                issue.IssueStatus = status;
                 model.Messsage = "Status Updated Successfully";
                 _context.SaveChanges();
                 model.IsSuccess = true;

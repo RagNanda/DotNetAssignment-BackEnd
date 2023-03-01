@@ -1,5 +1,6 @@
 namespace DotnetAssignment;
-public enum IssueType{
+public enum IssueType
+{
     Bug,
     Task,
     Story,

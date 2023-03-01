@@ -1,13 +1,10 @@
 using DotnetAssignment;
 using DotnetAssignmentBackEnd.Models;
 using Microsoft.EntityFrameworkCore;
-// using DotnetAssignment.Services.ProjectService;
 namespace DotnetAssignmentBackEnd.Services;
-// namespace DotnetAssignment.Services.ProjectService;
 public class IssueService:IIssueService
 {
     private ProjectContext _context;
-    // public ProjectService projService;
 
     public IssueService(ProjectContext context) {
         _context = context;   
@@ -36,9 +33,9 @@ public class IssueService:IIssueService
 
     public Issue GetIssueDetailsById(int issueId)
     {
-        Issue issue;
+        Issue? issue;
         try {
-            issue = _context.Issues.Include(s=>s.Project).Include(s=>s.Reporter).Include(s=>s.Assignee).Include(s=>s.Labels).SingleOrDefault(s=>s.Id==issueId);
+            issue = _context.Issues.Include(s=>s.Project).Include(s=>s.IssueReporter).Include(s=>s.IssueAssignee).Include(s=>s.IssueLabels).SingleOrDefault(s=>s.IssueId==issueId);
         } catch (Exception) {
             throw;
         }
@@ -48,7 +45,7 @@ public class IssueService:IIssueService
     { 
          List < Issue > issueList;
         try {
-            issueList = _context.Issues.Include(s=>s.Project).Include(s=>s.Reporter).Include(s=>s.Assignee).Include(s=>s.Labels).ToList();
+            issueList = _context.Issues.Include(s=>s.Project).Include(s=>s.IssueReporter).Include(s=>s.IssueAssignee).Include(s=>s.IssueLabels).ToList();
         } catch (Exception) {
             throw;
         }
@@ -60,57 +57,92 @@ public class IssueService:IIssueService
         ResponseModel model = new ResponseModel();
         try {   bool exists;
                 exists = Enum.IsDefined(typeof(IssueType), issueModel.Type);
-                if(exists){
-                Project project = _context.Find<Project>(issueModel.ProjectId);
-                User reporter = _context.Find<User>(issueModel.ReporterId);
-                Issue issue=new Issue(){
-                    ProjectId=issueModel.ProjectId,
-                    Description=issueModel.Description,
-                    Type=issueModel.Type,
-                    Status=issueModel.Status,
-                    Title=issueModel.Title,
-                    Reporter=reporter,
-                    Project= project
-                };
-                
-                _context.Add < Issue > (issue);
-                model.Messsage = "Issue Inserted Successfully";
-                _context.SaveChanges();
-                model.IsSuccess = true;
+                if(exists)
+                {
+                    Project? project = _context.Find<Project>(issueModel.ProjectId);
+                    
+                    User? reporter = _context.Find<User>(issueModel.ReporterId);
+                    
+                    Issue issue=new Issue(){
+                    
+                        ProjectId=issueModel.ProjectId,
+                    
+                        IssueDescription=issueModel.Description,
+                    
+                        IssueType=issueModel.Type,
+                    
+                        IssueStatus=issueModel.Status,
+                    
+                        IssueTitle=issueModel.Title,
+                    
+                        IssueReporter=reporter,
+                    
+                        Project= project
+                    };
+                    
+                    _context.Add < Issue > (issue);
+                   
+                    model.Messsage = "Issue Inserted Successfully";
+                   
+                    _context.SaveChanges();
+                   
+                    model.IsSuccess = true;
                 }
-                else{
+                else
+                {
                     model.IsSuccess = false;
+                 
                     model.Messsage = "Invalid Type of issue" ;
                 }
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             model.IsSuccess = false;
+         
             model.Messsage = "Error : " + ex.Message;
         }
         return model;
     }
-        public ResponseModel UpdateIssue(int issueId, IssueUpdate tempIssue)
+        public ResponseModel UpdateIssue(int issueId, IssueDTO tempIssue)
     {
         ResponseModel model = new ResponseModel();
-        try {
+        try 
+        {
                 bool existsType;
+         
                 bool existsStatus;
+         
                 existsType = Enum.IsDefined(typeof(IssueType), tempIssue.Type);
+         
                 existsStatus= Enum.IsDefined(typeof(Status), tempIssue.Status);
+         
                 if(existsType && existsStatus){
-                Issue issue = _context.Find<Issue>(issueId);
-                issue.Type = tempIssue.Type;
-                issue.Description = tempIssue.Description;
-                issue.Title = tempIssue.Title;
-                model.Messsage = "Issue Inserted Successfully";
-                _context.SaveChanges();
-                model.IsSuccess = true;
+         
+                    Issue? issue = _context.Find<Issue>(issueId);
+            
+                    issue.IssueType = tempIssue.Type;
+            
+                    issue.IssueDescription = tempIssue.Description;
+            
+                    issue.IssueTitle = tempIssue.Title;
+            
+                    model.Messsage = "Issue Inserted Successfully";
+            
+                    _context.SaveChanges();
+            
+                    model.IsSuccess = true;
                 }
-            else{
-                    model.IsSuccess = false;
-                    model.Messsage = "Invalid Type or Status" ;
-                }
-        } catch (Exception ex) {
+            else
+            {
+                model.IsSuccess = false;
+            
+                model.Messsage = "Invalid Type or Status" ;
+            }
+        } 
+        catch (Exception ex) 
+        {
             model.IsSuccess = false;
+           
             model.Messsage = "Error : " + ex.Message;
         }
         return model;
@@ -119,15 +151,24 @@ public class IssueService:IIssueService
      public ResponseModel AssignIssue(int issueId, int userId)
     {
         ResponseModel model = new ResponseModel();
-        try {
-                Issue issue = _context.Find<Issue>(issueId);
-                User user = _context.Find<User>(userId);
-                issue.Assignee = user;
-                model.Messsage = "Issue Assigned Successfully";
+        try 
+        {
+            Issue? issue = _context.Find<Issue>(issueId);
+        
+            User? user = _context.Find<User>(userId);
+        
+            issue.IssueAssignee = user;
+        
+            model.Messsage = "Issue Assigned Successfully";
+        
             _context.SaveChanges();
+
             model.IsSuccess = true;
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             model.IsSuccess = false;
+            
             model.Messsage = "Error : " + ex.Message;
         }
         return model;        
@@ -137,25 +178,22 @@ public class IssueService:IIssueService
     {
         ResponseModel model = new ResponseModel();
         try {
-                Issue issue = _context.Find<Issue>(issueId);
-                issue.Status = status;
+                Issue? issue = _context.Find<Issue>(issueId);
+                
+                issue.IssueStatus = status;
+                
                 model.Messsage = "Status Updated Successfully";
+                
                 _context.SaveChanges();
-            model.IsSuccess = true;
-        } catch (Exception ex) {
+                
+                model.IsSuccess = true;
+        } 
+        catch (Exception ex) 
+        {
             model.IsSuccess = false;
+            
             model.Messsage = "Error : " + ex.Message;
         }
         return model;
     }
-     // public Issue GetIssueDetailsByProjectId(int projectId)
-    // {
-    //     Issue issue;
-    //     try {
-    //         issue = _context.Find < Issue > (projectId);
-    //     } catch (Exception) {
-    //         throw;
-    //     }
-    //     return issue;
-    // }
 }

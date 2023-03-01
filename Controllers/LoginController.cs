@@ -29,7 +29,7 @@ namespace DotnetAssignmentBackEnd.Controllers;
         {
             try
             {
-                User user =  _context.Users.Include(s=>s.Roles).SingleOrDefault(user=>user.UserName==loginDTO.UserName);
+                User? user =  _context.Users.Include(s=>s.Roles).SingleOrDefault(user=>user.UserName==loginDTO.UserName);
                 if (user == null || string.IsNullOrEmpty(loginDTO.UserName) ||
                 string.IsNullOrEmpty(loginDTO.Password))
                 {

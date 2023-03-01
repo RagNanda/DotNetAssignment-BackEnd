@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotnetAssignment.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20230228081339_FirstMig")]
+    [Migration("20230228101358_FirstMig")]
     partial class FirstMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

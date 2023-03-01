@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/ragnanda/DotNetFinalAssignmentBackEnd/DotnetAssignment.csproj": {}
+    "/home/ragnanda/DotNetAssignment-BackEnd/DotnetAssignment.csproj": {}
   },
   "projects": {
-    "/home/ragnanda/DotNetFinalAssignmentBackEnd/DotnetAssignment.csproj": {
+    "/home/ragnanda/DotNetAssignment-BackEnd/DotnetAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ragnanda/DotNetFinalAssignmentBackEnd/DotnetAssignment.csproj",
+        "projectUniqueName": "/home/ragnanda/DotNetAssignment-BackEnd/DotnetAssignment.csproj",
         "projectName": "DotnetAssignment",
-        "projectPath": "/home/ragnanda/DotNetFinalAssignmentBackEnd/DotnetAssignment.csproj",
+        "projectPath": "/home/ragnanda/DotNetAssignment-BackEnd/DotnetAssignment.csproj",
         "packagesPath": "/home/ragnanda/.nuget/packages/",
-        "outputPath": "/home/ragnanda/DotNetFinalAssignmentBackEnd/obj/",
+        "outputPath": "/home/ragnanda/DotNetAssignment-BackEnd/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ragnanda/.nuget/NuGet/NuGet.Config"

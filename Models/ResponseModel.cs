@@ -4,7 +4,7 @@ public class ResponseModel {
         get;
         set;
     }
-    public string Messsage {
+    public string? Messsage {
         get;
         set;
     }

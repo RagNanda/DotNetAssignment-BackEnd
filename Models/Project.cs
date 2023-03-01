@@ -7,10 +7,10 @@ public class Project
     {
         [Key]
         public int Id {get;set;}
-        public string Description {get;set;}
-        public virtual User Creator {get;set;}
-        public virtual ICollection<Issue> Issues{get;set;}
-        // [JsonIgnore]
-    //  public virtual List<Issue> Issues { get; set; }
 
+        public string? Description {get;set;}
+
+        public virtual User? Creator {get;set;}
+        
+        public virtual ICollection<Issue>? Issues{get;set;}
     }

@@ -12,7 +12,7 @@ namespace DotnetAssignmentBackEnd.Controllers;
 public class LabelController:ControllerBase{
 
     ILabelService _LabelService;
-    
+
     public LabelController(ILabelService MockService) 
     {
         _LabelService = MockService;
@@ -38,7 +38,7 @@ public class LabelController:ControllerBase{
     [Authorize(Roles="admin,projectManager")]
     [HttpPost]
     [Route("[action]")]
-    public IActionResult SaveLablels(Label label)
+    public IActionResult SaveLablels(Labels label)
     {
         try
         {

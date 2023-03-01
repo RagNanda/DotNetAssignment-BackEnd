@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GzywHLc/iVn5+sCwNv9xzc2kwiUAxooifxmAyCl5RoL5GU83dOqlKv+R1xtwcUfaPwq6Zu8v2Tg2KzNU6N9uuA==",
+  "dgSpecHash": "/DBMkZw5rXzpf9JN8hTHDRzQ+gVJj5a7xCWEpsZDCI+ECGQu5HCC2GZ5tpxzMGzQIMx0MfOROktZxU0of2WYnA==",
   "success": true,
-  "projectFilePath": "/home/ragnanda/DotNetFinalAssignmentBackEnd/DotnetAssignment.csproj",
+  "projectFilePath": "/home/ragnanda/DotNetAssignment-BackEnd/DotnetAssignment.csproj",
   "expectedPackageFiles": [
     "/home/ragnanda/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/home/ragnanda/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.0/microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",

@@ -3,14 +3,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace DotnetAssignmentBackEnd.Models;
-public class Label
-    {   public Label(){
+public class Labels
+    {   
+        public Labels()
+        {
             this.Issues=new HashSet<Issue>();
         }
+        
         [Key]
-        public int Id {get;set;}
-        public string LabelName {get;set;}
+        public int LabelId {get;set;}
+        
+        public string? LabelValue {get;set;}
 
         [JsonIgnore]
-        public virtual ICollection<Issue>? Issues{get;set;}
+        public virtual ICollection<Issue>? Issues {get;set;}
+    
     }

@@ -1,4 +1,4 @@
 namespace DotnetAssignmentBackEnd.Models;
 public class RoleDTO{
-    public string RoleName{get;set;}
+    public string? RoleName{get;set;}
 }
