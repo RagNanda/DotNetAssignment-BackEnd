@@ -15,11 +15,11 @@ public class IssueController:ControllerBase
 
     IIssueService _IssueService;
 
-    private ProjectContext _context;
+    private ProjectContext _DbContext;
 
     public IssueController(IIssueService MockService,ProjectContext context) 
     {
-        _context = context;
+        _DbContext = context;
 
         _IssueService = MockService;
         
@@ -33,7 +33,9 @@ public class IssueController:ControllerBase
         try 
         {
             var issues = _IssueService.GetIssuesList();
+            
             Console.WriteLine(issues);
+            
             if (issues == null) return NotFound();
             return Ok(issues);
         } 
@@ -131,27 +133,29 @@ public class IssueController:ControllerBase
         ResponseModel model = new ResponseModel();
         try 
         {
-            Issue? issue = _context.Find<Issue>(issueId);
-            int newStatus=0, current=0;
+            Issue? issue = _DbContext.Find<Issue>(issueId);
+            int MockStatus = 0, Temp = 0;
             foreach (string i in Enum.GetNames(typeof(Status)))
             {
-                if (i==status) {
+                if (i==status) 
+                {
                         break;
                 }
-                newStatus=newStatus+1;
+                MockStatus = MockStatus+1;
             }
             foreach (string i in Enum.GetNames(typeof(Status)))
             {
-                if (i==issue.IssueStatus){
+                if (i==issue.IssueStatus)
+                {
                     break;
                 }
-                 current=current+1;
+                 Temp=Temp+1;
             }
-            if(newStatus<=current+1)
+            if(MockStatus<=Temp+1)
             {
                 issue.IssueStatus = status;
                 model.Messsage = "Status Updated Successfully";
-                _context.SaveChanges();
+                _DbContext.SaveChanges();
                 model.IsSuccess = true;
             }
         } 
@@ -161,6 +165,27 @@ public class IssueController:ControllerBase
             model.Messsage = "Error : " + ex.Message;
         }
         return model;
+    }
+
+    [HttpGet]
+    [Route("[action]")]
+    [Authorize(Roles="admin,projectManager,standard")]
+    public IActionResult GetIssueBySearch(string Title,string Description) 
+    {
+        try 
+        {
+            var issues = _IssueService.SearchIssue(Title,Description);
+            
+            //Console.WriteLine(issues);
+            
+            if (issues == null) return NotFound();
+            return Ok(issues);
+        } 
+
+        catch (Exception e) 
+        {
+            return BadRequest();
+        }
     }
 
 }

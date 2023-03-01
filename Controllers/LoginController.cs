@@ -16,11 +16,13 @@ namespace DotnetAssignmentBackEnd.Controllers;
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;  
+        
         private ProjectContext _context;
 
         public LoginController(IConfiguration config,ProjectContext context)
         {
             _config = config;
+           
             _context = context;
         }
 

@@ -196,4 +196,9 @@ public class IssueService:IIssueService
         }
         return model;
     }
+    public Issue SearchIssue(string Title, string Description){    
+         Issue issue = _context.Issues.    
+         FirstOrDefault(s=> s.IssueTitle == Title && s.IssueDescription == Description);    
+         return issue;    
+    }    
 }

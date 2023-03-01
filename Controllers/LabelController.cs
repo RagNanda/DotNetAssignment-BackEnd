@@ -38,7 +38,7 @@ public class LabelController:ControllerBase{
     [Authorize(Roles="admin,projectManager")]
     [HttpPost]
     [Route("[action]")]
-    public IActionResult SaveLablels(Labels label)
+    public IActionResult SaveLabels(Labels label)
     {
         try
         {

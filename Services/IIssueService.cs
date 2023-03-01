@@ -16,4 +16,6 @@ public interface IIssueService
         ResponseModel DeleteIssue(int issueId);
         
         ResponseModel AssignIssue(int issueId,int userId);
+
+        Issue SearchIssue(string Title,string Description);
     }
